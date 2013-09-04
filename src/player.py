@@ -9,6 +9,7 @@ class Player(Entity):
         super(Player, self).__init__()
         self.k_up = False
         self.k_down = False
+
     def event(self, event):
         for evt in event:
             if evt.type == KEYDOWN:
@@ -24,14 +25,15 @@ class Player(Entity):
         
         if self.k_up == True and (self.dirVector.getLength() < self.maxSpeed or self.dirVector.getY() > 0):
             self.dirVector.setY(self.dirVector.getY() - self.acceleration)
+
         if self.k_down == True and (self.dirVector.getLength() < self.maxSpeed or self.dirVector.getY() < 0):
             self.dirVector.setY(self.dirVector.getY() + self.acceleration)
+
         if self.k_up == False and self.k_down == False and self.dirVector.getLength() != 0:
             self.dirVector.setLength(self.dirVector.getLength() * self.friction)
             if self.dirVector.getLength() == math.fabs(self.acceleration):
                 self.dirVector.setLength(0)
-        
+
         super(Player, self).event(event)
-    def render(self, surface):
-        super(Player, self).render(surface)
-    
+
+
