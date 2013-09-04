@@ -22,12 +22,12 @@ class Player(Entity):
                 if evt.key == K_DOWN:
                     self.k_down = False
         
-        if self.k_up == True and self.dirVector.getLength() < self.maxSpeed:
+        if self.k_up == True and (self.dirVector.getLength() < self.maxSpeed or self.dirVector.getY() > 0):
             self.dirVector.setY(self.dirVector.getY() - self.acceleration)
-        if self.k_down == True and self.dirVector.getLength() < self.maxSpeed:
+        if self.k_down == True and (self.dirVector.getLength() < self.maxSpeed or self.dirVector.getY() < 0):
             self.dirVector.setY(self.dirVector.getY() + self.acceleration)
         if self.k_up == False and self.k_down == False and self.dirVector.getLength() != 0:
-            self.dirVector.setLength(self.dirVector.getLength() - self.friction)
+            self.dirVector.setLength(self.dirVector.getLength() * self.friction)
             if self.dirVector.getLength() == math.fabs(self.acceleration):
                 self.dirVector.setLength(0)
         self.dirVector.setX(0)

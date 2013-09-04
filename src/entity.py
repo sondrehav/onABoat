@@ -13,7 +13,7 @@ class Entity(object):
         self.velocity = 0
         self.direction = 0
         self.acceleration = 0.25
-        self.friction = 0.125
+        self.friction = 0.9
         self.maxSpeed = 8
         
         self.surfaceObject = pygame.image.load(self.imageName)
