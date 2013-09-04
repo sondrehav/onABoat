@@ -3,13 +3,16 @@ import pygame
 class SingleLine:
 
     def __init__(self, text):
+        self.text = text
         self.fontObject = pygame.font.Font('freesansbold.ttf', 16)
-        self.surfaceObject = self.fontObject.render(text, True, pygame.Color(0,0,0))
+        self.surfaceObject = self.fontObject.render(self.text, True, pygame.Color(0,0,0))
         self.rectObject = self.surfaceObject.get_rect()
 
     def render(self, x, y, surface):
         self.rectObject.topleft =(x,y) 
         surface.blit(self.surfaceObject, self.rectObject)
+    def changeText(self, intext):
+        self.text = intext
 
 class Console:
 
