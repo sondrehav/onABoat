@@ -9,6 +9,7 @@ class Application:
         self.width = 640
         self.height = 480
         self.fps = 60
+        self.bubbleCount = 10
         
         pygame.init()
         self.fpsClock = pygame.time.Clock()
@@ -16,10 +17,16 @@ class Application:
         pygame.display.set_caption('Anim')
         
         self.entityList = []
-        self.bubbleList = []
+        self.bubbleListFront = []
+        self.bubbleListBack = []
+                
+        for i in range(0, self.bubbleCount):
+            self.bubbleListFront.append(Bubble(True))
+            self.bubbleListBack.append(Bubble(False))
         
         self.player = Player()
-        self.bubble = Bubble()
+        #self.backGround
+        
         print('Init...')
     def event(self):
         self.events = pygame.event.get()
@@ -32,10 +39,16 @@ class Application:
                     print('Exiting...')
                     self.exit()
         self.player.event(self.events)
+        for i in range(0, self.bubbleCount):
+            self.bubbleListFront[i].event(self.events)
+            self.bubbleListBack[i].event(self.events)
     def render(self):
         self.windowSurfaceObj.fill(pygame.Color(50,60,121))
-        self.bubble.render(self.windowSurfaceObj)
+        for i in range(0, self.bubbleCount):
+            self.bubbleListBack[i].render(self.windowSurfaceObj)
         self.player.render(self.windowSurfaceObj)
+        for i in range(0, self.bubbleCount):
+            self.bubbleListFront[i].render(self.windowSurfaceObj)
         pygame.display.update()
         self.fpsClock.tick(self.fps)
     def exit(self):
