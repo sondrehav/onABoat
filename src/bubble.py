@@ -23,5 +23,3 @@ class Bubble(Entity):
         if self.xPos <= -16:
             self.xPos = 640
 
-    def render(self, surface):
-        super(Bubble, self).render(surface)

@@ -50,8 +50,8 @@ class Player(Entity):
                                 
         super(Player, self).event(event)
 
-    def render(self, surface):
+    def render(self, surface, drawVector=False):
         for i in range(0, len(self.bulletList)):
-            self.bulletList[i].render(surface)
-        super(Player, self).render(surface)
+            self.bulletList[i].render(surface, drawVector)
+        super(Player, self).render(surface, drawVector)
     

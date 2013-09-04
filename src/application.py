@@ -69,13 +69,18 @@ class Application:
             self.bubbleListBack[i].event(self.events)
 
     def render(self):
+        #Background
         self.windowSurfaceObj.fill(pygame.Color(50,60,121))
+        #Boblene bak
         for i in range(0, self.bubbleCount):
-            self.bubbleListBack[i].render(self.windowSurfaceObj)
+            self.bubbleListBack[i].render(self.windowSurfaceObj, self.DrawPosVector)
+        #Spilleren
         self.player.render(self.windowSurfaceObj, self.DrawPosVector)
+        #Boblene forran
         for i in range(0, self.bubbleCount):
             self.bubbleListFront[i].render(self.windowSurfaceObj, self.DrawPosVector)
-
+        #Konsollen
+        self.console.render(self.windowSurfaceObj)
         pygame.display.update()
         self.fpsClock.tick(self.fps)
         

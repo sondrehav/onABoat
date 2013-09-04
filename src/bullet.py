@@ -14,8 +14,6 @@ class Bullet(Entity):
         super(Bullet, self).event(event)
         #if self.xPos > 640:
             #self.__del__()
-    def render(self, surface):
-        super(Bullet, self).render(surface)
         
     def outOfRange(self):
         if self.xPos > 640:

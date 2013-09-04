@@ -26,7 +26,7 @@ class Entity(object):
         self.dirVector.xPos = self.xPos + self.width/2
         self.dirVector.yPos= self.yPos + self.height/2
 
-    def render(self, surface, drawVector):
+    def render(self, surface, drawVector=False):
         surface.blit(self.surfaceObject, (self.xPos,self.yPos))
         if drawVector:
             self.dirVector.render(surface)
