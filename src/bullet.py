@@ -5,7 +5,7 @@ from vector import *
 
 class Bullet(Entity):
     def __init__(self, x, y):
-        self.imageName = "ammo.png"
+        self.imageName = "res/ammo.png"
         super(Bullet, self).__init__()
         self.xPos = x
         self.yPos = y

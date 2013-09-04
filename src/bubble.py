@@ -7,9 +7,9 @@ from random import randint
 class Bubble(Entity):
     def __init__(self, front):
         if front:
-            self.imageName = "bubble.png"
+            self.imageName = "res/bubble.png"
         else:
-            self.imageName = "bubble_small.png"
+            self.imageName = "res/bubble_small.png"
         super(Bubble, self).__init__()
         self.xPos = randint(0,640)
         self.yPos = randint(0,480)

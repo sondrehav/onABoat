@@ -8,7 +8,7 @@ from vector import *
 
 class Player(Entity):
     def __init__(self):
-        self.imageName = "submarine.png"
+        self.imageName = "res/submarine.png"
         super(Player, self).__init__()
         self.k_up = False
         self.k_down = False
