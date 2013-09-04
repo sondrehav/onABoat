@@ -19,8 +19,13 @@ class Entity(object):
         self.surfaceObject = pygame.image.load(self.imageName)
         self.width = self.surfaceObject.get_width()
         self.height = self.surfaceObject.get_height() 
+
     def event(self, event):
         self.xPos += self.dirVector.getX()
         self.yPos += self.dirVector.getY()
+        self.dirVector.xPos = self.xPos + self.width/2
+        self.dirVector.yPos= self.yPos + self.height/2
+
     def render(self, surface):
         surface.blit(self.surfaceObject, (self.xPos,self.yPos))
+        self.dirVector.render(surface)

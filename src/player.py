@@ -30,10 +30,8 @@ class Player(Entity):
             self.dirVector.setLength(self.dirVector.getLength() * self.friction)
             if self.dirVector.getLength() == math.fabs(self.acceleration):
                 self.dirVector.setLength(0)
-        self.dirVector.setX(0)
         
         super(Player, self).event(event)
     def render(self, surface):
         super(Player, self).render(surface)
-        self.dirVector.render(surface)
     
