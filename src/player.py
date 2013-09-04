@@ -27,13 +27,11 @@ class Player(Entity):
         if self.k_down == True and self.dirVector.getLength() < self.maxSpeed:
             self.dirVector.setY(self.dirVector.getY() + self.acceleration)
         if self.k_up == False and self.k_down == False and self.dirVector.getLength() != 0:
-            self.dirVector.setLength(self.dirVector.getLength() - self.friction)
+            self.dirVector.setLength(self.dirVector.getLength() * self.friction)
             if self.dirVector.getLength() == math.fabs(self.acceleration):
                 self.dirVector.setLength(0)
-        self.dirVector.setX(0)
         
         super(Player, self).event(event)
     def render(self, surface):
         super(Player, self).render(surface)
-        self.dirVector.render(surface)
     
