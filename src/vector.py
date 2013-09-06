@@ -53,8 +53,3 @@ class Vector:
 
         pygame.draw.line(self.sourceSurface, color, startpos, endpos, 3)
         surface.blit(self.sourceSurface, (0 , 0), None, pygame.BLEND_ADD)
-
-
-
-
-

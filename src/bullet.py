@@ -2,6 +2,7 @@ import pygame, sys
 from pygame.locals import *
 from entity import Entity
 from vector import *
+from globals import *
 
 class Bullet(Entity):
     def __init__(self, x, y):
@@ -12,9 +13,7 @@ class Bullet(Entity):
         self.dirVector.setX(10)
     def event(self, event):
         super(Bullet, self).event(event)
-        #if self.xPos > 640:
-            #self.__del__()
         
     def outOfRange(self):
-        if self.xPos > 640:
+        if self.xPos > getWidth():
             return True

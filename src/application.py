@@ -4,13 +4,14 @@ from entity import *
 from player import *
 from bubble import *
 from console import Console
+from globals import *
 
 
 class Application:
     def __init__(self):
-        self.width = 1024
-        self.height = 768
-        self.fps = 60
+        self.width = getWidth()
+        self.height = getHeight()
+        self.fps = getFPS()
         self.bubbleCount = 10
         
         pygame.init()
