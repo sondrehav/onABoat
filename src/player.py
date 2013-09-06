@@ -1,5 +1,4 @@
 import pygame, sys, math
-from collections import deque
 from pygame.locals import *
 from entity import Entity
 from bullet import Bullet
@@ -13,7 +12,7 @@ class Player(Entity):
         self.k_up = False
         self.k_down = False
         self.xPos = 90
-        self.bulletList = deque([])
+        self.bulletList = []
         self.k_r = False
         self.k_l = False
         self.xSpeed = 0
@@ -46,11 +45,13 @@ class Player(Entity):
             if math.fabs(self.dirVector.getY()) == math.fabs(self.acceleration):
                 self.dirVector.setLength(0) 
 
-        for i in range(0, len(self.bulletList)):
+        i = 0
+        while i < len(self.bulletList):
             self.bulletList[i].event(event)
             if self.bulletList[i].outOfRange():
-                self.bulletList.pop()
-                print('gone')
+                self.bulletList.pop(i)   
+                continue
+            i+=1
     
     def key(self, event):
         for evt in event:
