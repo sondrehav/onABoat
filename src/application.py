@@ -5,6 +5,7 @@ from player import *
 from bubble import *
 from console import Console
 from globals import *
+from background import *
 
 
 class Application:
@@ -12,7 +13,7 @@ class Application:
         self.width = getWidth()
         self.height = getHeight()
         self.fps = getFPS()
-        self.bubbleCount = 10
+        self.bubbleCount = int(getWidth() / 40)
         
         pygame.init()
         self.fpsClock = pygame.time.Clock()
@@ -28,7 +29,7 @@ class Application:
             self.bubbleListBack.append(Bubble(False))
         
         self.player = Player()
-        #self.backGround
+        self.background = Background()
         
         print('Init...')
         self.console = Console()
@@ -36,6 +37,8 @@ class Application:
 
     def event(self):
         self.events = pygame.event.get()
+        self.background.dirVector.setX(-(self.player.getXSpeed() / 8))
+        self.background.event(self.events)
         for event in self.events:
             if event.type == QUIT:
                 pygame.quit()
@@ -67,11 +70,13 @@ class Application:
         self.player.event(self.events)
         for i in range(0, self.bubbleCount):
             self.bubbleListFront[i].event(self.events)
+            self.bubbleListFront[i].dirVector.setX(-self.player.getXSpeed())
             self.bubbleListBack[i].event(self.events)
-
+            self.bubbleListBack[i].dirVector.setX(-self.player.getXSpeed())
+            
     def render(self):
         #Background
-        self.windowSurfaceObj.fill(pygame.Color(50,60,121))
+        self.background.render(self.windowSurfaceObj)
         #Boblene bak
         for i in range(0, self.bubbleCount):
             self.bubbleListBack[i].render(self.windowSurfaceObj, self.DrawPosVector)
@@ -80,6 +85,7 @@ class Application:
         #Boblene forran
         for i in range(0, self.bubbleCount):
             self.bubbleListFront[i].render(self.windowSurfaceObj, self.DrawPosVector)
+        
         #Konsollen
         self.console.render(self.windowSurfaceObj)
         pygame.display.update()

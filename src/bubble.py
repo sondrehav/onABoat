@@ -15,18 +15,23 @@ class Bubble(Entity):
         self.xPos = randint(0,getWidth())
         self.yPos = randint(0,getHeight())
         if front:
-            self.dirVector.setX(-randint(1,5) * 1.5 / 5)
+            self.dirVector.setX(randint(-20,20) / 40)
+            self.dirVector.setY(randint(-20,20) / 40)
         else:
-            self.dirVector.setX(-randint(1,5) / 5)
+            self.dirVector.setX(randint(-20,20) / 80)
+            self.dirVector.setY(randint(-20,20) / 80)
 
     def event(self, event):
         super(Bubble, self).event(event)
         if self.xPos < -16:
             self.xPos = getWidth()
+            self.yPos = randint(0,getHeight())
         if self.xPos > getWidth():
             self.xPos = -16
+            self.yPos = randint(0,getHeight())
         if self.yPos < -16:
             self.yPos = getHeight()
+            self.xPos = randint(0,getWidth())
         if self.yPos > getHeight():
             self.yPos = -16
-
+            self.xPos = randint(0,getWidth())

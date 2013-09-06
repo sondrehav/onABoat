@@ -11,9 +11,6 @@ class Bullet(Entity):
         self.xPos = x
         self.yPos = y
         self.dirVector.setX(10)
-    def event(self, event):
-        super(Bullet, self).event(event)
-        
     def outOfRange(self):
         if self.xPos > getWidth():
             return True

@@ -8,7 +8,7 @@ class Entity(object):
         self.xPos = 10
         self.yPos = 50
         if self.imageName == None:
-            self.imageName = "defaultimage.png"
+            self.imageName = "res/defaultimage.png"
         self.dirVector = Vector(0,0)
         self.velocity = 0
         self.direction = 0
