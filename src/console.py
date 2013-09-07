@@ -1,27 +1,32 @@
 import pygame
 
 class SingleLine:
+    textcolor = pygame.Color(220,220,220)
 
     def __init__(self, text):
         self.text = text
         self.fontObject = pygame.font.Font('freesansbold.ttf', 16)
-        self.surfaceObject = self.fontObject.render(self.text, True, pygame.Color(0,0,0))
+        self.surfaceObject = self.fontObject.render(self.text, True, self.textcolor)
         self.rectObject = self.surfaceObject.get_rect()
 
     def render(self, x, y, surface):
         self.rectObject.topleft =(x,y) 
         surface.blit(self.surfaceObject, self.rectObject)
+
     def changeText(self, intext):
         self.text = intext
 
 class Console:
 
-    def __init__(self):
+    def __init__(self, width, height):
         self.lineList = []
         self.visible = False
         self.xPos = 10
         self.yPos = 10
         self.currentLine = ""
+        self.bsurface = pygame.Surface((width, height))
+        self.bsurface.set_alpha(128)
+        self.bsurface.fill((0,0,0))
 
     def out(self, text):
         self.lineList.append(SingleLine(text))
@@ -29,6 +34,7 @@ class Console:
 
     def render(self, surface):
         if self.visible:
+            surface.blit(self.bsurface,(0,0))
             for i in range(0, len(self.lineList)):
                 index = len(self.lineList) - i - 1
                 self.lineList[index].render(self.xPos, self.yPos + (i * 20), surface)            

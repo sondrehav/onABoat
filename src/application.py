@@ -32,13 +32,11 @@ class Application:
         self.background = Background()
         
         print('Init...')
-        self.console = Console()
+        self.console = Console(getWidth(), getHeight())
         self.DrawPosVector = False
 
     def event(self):
         self.events = pygame.event.get()
-        self.background.dirVector.setX(-(self.player.getXSpeed() / 8))
-        self.background.event(self.events)
         for event in self.events:
             if event.type == QUIT:
                 pygame.quit()
@@ -58,15 +56,22 @@ class Application:
                         try:
                             exec(s)
                         except:
-                            print(s)
-                            print(sys.exc_info()[0])
+                            pass
                         self.console.stageCurrentLine()
+                        err = str(sys.exc_info()[0])
+                        if err != "None":
+                            self.console.setCurrentLine((" "*5)+err)
+                            self.console.stageCurrentLine()
                         break
                     elif event.key == K_BACKSPACE:
                         self.console.setCurrentLine(self.console.getCurrentLine()[:-1])
                         break
                     self.console.appendCurrentLine(event.unicode)
+                    return
             
+        self.background.dirVector.setX(-(self.player.getXSpeed() / 8))
+        self.background.event(self.events)
+
         self.player.event(self.events)
         for i in range(0, self.bubbleCount):
             self.bubbleListFront[i].event(self.events)
