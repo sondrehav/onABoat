@@ -17,7 +17,10 @@ class Application:
         
         pygame.init()
         self.fpsClock = pygame.time.Clock()
-        self.windowSurfaceObj = pygame.display.set_mode((self.width, self.height))
+        if fullscreen():
+            self.windowSurfaceObj = pygame.display.set_mode((self.width, self.height), pygame.FULLSCREEN)
+        else:
+            self.windowSurfaceObj = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption('Anim')
         
         self.entityList = []
@@ -75,9 +78,9 @@ class Application:
         self.player.event(self.events)
         for i in range(0, self.bubbleCount):
             self.bubbleListFront[i].event(self.events)
-            self.bubbleListFront[i].dirVector.setX(-self.player.getXSpeed())
+            self.bubbleListFront[i].setXSpeedFromPlayer(-self.player.getXSpeed())
             self.bubbleListBack[i].event(self.events)
-            self.bubbleListBack[i].dirVector.setX(-self.player.getXSpeed())
+            self.bubbleListBack[i].setXSpeedFromPlayer(-self.player.getXSpeed())
             
     def render(self):
         #Background

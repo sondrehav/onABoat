@@ -33,7 +33,7 @@ class Entity(object):
         self.dirVector.yPos= self.yPos + self.height/2
 
     def render(self, surface, drawVector=False):
-        surface.blit(self.surfaceObjects[(self.renderCount)/self.ticksBeforeAnimSwitch%len(self.imageNames)], (self.xPos,self.yPos))
+        surface.blit(self.surfaceObjects[int((self.renderCount)/self.ticksBeforeAnimSwitch%len(self.imageNames))], (self.xPos,self.yPos))
         self.renderCount += 1
         if drawVector:
             self.dirVector.render(surface)

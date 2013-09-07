@@ -14,12 +14,13 @@ class Bubble(Entity):
         super(Bubble, self).__init__()
         self.xPos = randint(0,getWidth())
         self.yPos = randint(0,getHeight())
+        self.front = front
         if front:
-            self.dirVector.setX(random())
-            self.dirVector.setY(-random())
+            self.xSpeed = (random() - 0.5)
+            self.dirVector.setY(-random() - 0.5)
         else:
-            self.dirVector.setX(random()/2)
-            self.dirVector.setY(-random()/2)
+            self.xSpeed = (random() - 0.5) / 2
+            self.dirVector.setY(random() / 2 - 0.25)
 
     def event(self, event):
         super(Bubble, self).event(event)
@@ -35,3 +36,9 @@ class Bubble(Entity):
         if self.yPos > getHeight():
             self.yPos = -16
             self.xPos = randint(0,getWidth())
+
+    def setXSpeedFromPlayer(self, input):
+        if self.front:
+            self.dirVector.setX(self.xSpeed + input)
+        else:
+            self.dirVector.setX(self.xSpeed + input / 2)

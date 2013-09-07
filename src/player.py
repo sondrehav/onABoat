@@ -79,7 +79,8 @@ class Player(Entity):
     def event(self, event):
         self.key(event)
         self.movement(event)
-        self.xMove()                       
+        self.xMove()
+        self.ticksBeforeAnimSwitch = 36 - int(self.getXSpeed()) * 8
         super(Player, self).event(event)
 
     def render(self, surface, drawVector=False):
@@ -89,7 +90,5 @@ class Player(Entity):
         
     def getXSpeed(self):
         return self.xSpeed
-
-
 
 
