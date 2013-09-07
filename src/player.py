@@ -7,7 +7,7 @@ from vector import *
 
 class Player(Entity):
     def __init__(self):
-        self.imageName = "res/submarine.png"
+        self.imageNames =["res/submarine1.png","res/submarine2.png","res/submarine3.png","res/submarine2.png"]
         super(Player, self).__init__()
         self.k_up = False
         self.k_down = False
@@ -89,3 +89,7 @@ class Player(Entity):
         
     def getXSpeed(self):
         return self.xSpeed
+
+
+
+

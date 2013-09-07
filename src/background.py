@@ -4,9 +4,9 @@ from globals import *
 
 class Background(Entity):
     def __init__(self):
-        self.imageName = "res/background.png"
+        self.imageNames = ["res/background.png"]
         super(Background, self).__init__()
-        self.surfaceObject = pygame.transform.scale(self.surfaceObject, (int(self.width * 4), int(self.height * 4)))
+        self.surfaceObjects[0] = pygame.transform.scale(self.surfaceObjects[0], (int(self.width * 4), int(self.height * 4)))
         self.yPos = -128
         self.xPos = 0
     def event(self, event):
