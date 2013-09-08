@@ -63,6 +63,7 @@ class Player(Entity):
                 self.bulletList.pop(i)   
                 continue
             i+=1
+        i = 0
         while i < len(self.bulletList2):
             self.bulletList2[i].event(event)
             if self.bulletList2[i].outOfRange():
