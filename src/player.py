@@ -16,17 +16,20 @@ class Player(Entity):
         self.xPos = 40
         self.bulletList = []
         self.bulletList2 = []
+
         self.k_r = False
         self.k_l = False
+        self.k_s = False
+        self.k_a = False
+
         self.xSpeed = 0
         self.xfriction = 0.995
         self.maxSpeedX = 4
         self.yFrame = 20
         self.disableInput = False
-        self.timer = getFPS() * 5
+        self.timer = 0
         self.counter = False
-        self.timer2 = getFPS() * 0.1
-        self.k_s = False
+        self.timer2 = 0
 
     def xMove(self):
 
@@ -77,9 +80,7 @@ class Player(Entity):
                 if evt.key == K_DOWN:
                     self.k_down = True
                 if evt.key == K_a:
-                    if self.counter == False:
-                        self.bulletList.append(Bullet(self.xPos + 117,self.yPos + 76))
-                        self.counter = True
+                    self.k_a = True
                 if evt.key == K_s:
                     self.k_s = True
                 if evt.key == K_RIGHT:
@@ -93,6 +94,8 @@ class Player(Entity):
                     self.k_down = False
                 if evt.key == K_s:
                     self.k_s = False
+                if evt.key == K_a:
+                    self.k_a = False
                 if evt.key == K_RIGHT:
                     self.k_r = False
                 if evt.key == K_LEFT:
@@ -104,18 +107,17 @@ class Player(Entity):
 
     def event(self, event):
         self.key(event)
-        if self.counter == True:
-            if self.timer != 0:
-                self.timer -= 1
-            else:
-                self.counter = False
-                self.timer = getFPS() * 5
+        #Liten kule
         if self.k_s == True:
             if self.timer2 != 0:
                 self.timer2 -= 1
             else:
                 self.bulletList2.append(Bullet2(self.xPos + 109,self.yPos + 93))
                 self.timer2 = getFPS() * 0.1
+        # Stor kule
+        if self.k_a == True:
+            self.bulletList.append(Bullet(self.xPos + 117,self.yPos + 76))
+            self.timer = getFPS() * 5
             
         self.movement(event)
         self.xMove()

@@ -1,4 +1,5 @@
 import pygame
+from sys import exc_info
 
 class SingleLine:
     textcolor = pygame.Color(220,220,220)
@@ -19,6 +20,8 @@ class SingleLine:
         self.text = intext
 
 class Console:
+    host = None
+    errorsplit = "{0}--->{0}".format(" "*5)
 
     def __init__(self, width, height):
         self.lineList = []
@@ -30,6 +33,17 @@ class Console:
         self.bsurface = pygame.Surface((width, height))
         self.bsurface.set_alpha(128)
         self.bsurface.fill((0,0,0))
+
+    def execute(self):
+        line = "self.host." + (self.getCurrentLine())
+        try:
+            exec(line) 
+        except:
+            pass
+        error = str(exc_info()[0])
+        self.appendCurrentLine(self.errorsplit + error)
+        self.stageCurrentLine()
+
 
     def out(self, text):
         self.lineList.append(SingleLine(text))

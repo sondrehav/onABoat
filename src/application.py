@@ -37,6 +37,7 @@ class Application:
         
         print('Init...')
         self.console = Console(getWidth(), getHeight())
+        Console.host = self
         self.DrawPosVector = False
 
     def event(self):
@@ -56,16 +57,7 @@ class Application:
 
                 elif self.console.isActive():
                     if event.key == K_RETURN:
-                        s = self.console.getCurrentLine()
-                        try:
-                            exec(s)
-                        except:
-                            pass
-                        self.console.stageCurrentLine()
-                        err = str(sys.exc_info()[0])
-                        if err != "None":
-                            self.console.setCurrentLine((" "*5)+err)
-                            self.console.stageCurrentLine()
+                        self.console.execute()
                         break
                     elif event.key == K_BACKSPACE:
                         self.console.setCurrentLine(self.console.getCurrentLine()[:-1])
