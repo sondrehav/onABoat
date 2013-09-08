@@ -3,11 +3,11 @@ import pygame
 class SingleLine:
     textcolor = pygame.Color(220,220,220)
     textSize = 12
-    textFont = "courier"
+    textFont = "res/fonts/DejaVuSansMono.ttf"
 
     def __init__(self, text):
         self.text = text
-        self.fontObject = pygame.font.Font('freesansbold.ttf', self.textSize)
+        self.fontObject = pygame.font.Font(self.textFont, self.textSize)
         self.surfaceObject = self.fontObject.render(self.text, True, self.textcolor)
         self.rectObject = self.surfaceObject.get_rect()
 
@@ -25,7 +25,7 @@ class Console:
         self.visible = False
         self.xPos = 10
         self.yPos = 10
-        self.lineSpacing = SingleLine.textSize + 4
+        self.lineSpacing = SingleLine.textSize
         self.currentLine = ""
         self.bsurface = pygame.Surface((width, height))
         self.bsurface.set_alpha(128)
