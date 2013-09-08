@@ -17,7 +17,7 @@ class Bubble(Entity):
         self.front = front
         if front:
             self.xSpeed = (random() - 0.5)
-            self.dirVector.setY(-random() - 0.5)
+            self.dirVector.setY(random() - 0.5)
         else:
             self.xSpeed = (random() - 0.5) / 2
             self.dirVector.setY(random() / 2 - 0.25)

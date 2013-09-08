@@ -6,3 +6,5 @@ def getFPS():
     return 60
 def fullscreen():
     return True
+def cursor():
+    return False

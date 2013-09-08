@@ -23,6 +23,8 @@ class Application:
             self.windowSurfaceObj = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption('Anim')
         
+        pygame.mouse.set_visible(cursor())
+        
         self.entityList = []
         self.bubbleListFront = []
         self.bubbleListBack = []
