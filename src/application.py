@@ -73,6 +73,8 @@ class Application:
 
         for lst in self.entitylist:
             for e in lst:
+                if isinstance(e, Bubble):
+                    e.setXSpeedFromPlayer(-self.player.getXSpeed())
                 e.event(self.events)
             
     def render(self):

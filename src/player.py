@@ -116,7 +116,9 @@ class Player(Entity):
                 self.bulletList2.append(Bullet2(self.xPos + 109,self.yPos + 93))
                 self.timer2 = getFPS() * 0.1
         # Stor kule
-        if self.k_a == True:
+        if self.timer > 0:
+            self.timer -=1
+        elif self.k_a == True:
             self.bulletList.append(Bullet(self.xPos + 117,self.yPos + 76))
             self.timer = getFPS() * 5
             
