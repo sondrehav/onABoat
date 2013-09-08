@@ -75,12 +75,15 @@ class Player(Entity):
                     self.k_r = False
                 if evt.key == K_LEFT:
                     self.k_l = False
+        if self.k_l or self.k_r:
+            self.shouldAnimate = True
+        else:
+            self.shouldAnimate = False
 
     def event(self, event):
         self.key(event)
         self.movement(event)
         self.xMove()
-        self.ticksBeforeAnimSwitch = 36 - int(self.getXSpeed()) * 8
         super(Player, self).event(event)
 
     def render(self, surface, drawVector=False):

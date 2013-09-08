@@ -12,7 +12,6 @@ class Application:
     def __init__(self):
         self.width = getWidth()
         self.height = getHeight()
-        self.fps = getFPS()
         self.bubbleCount = int(getWidth() / 40)
         
         pygame.init()
@@ -97,7 +96,7 @@ class Application:
         #Konsollen
         self.console.render(self.windowSurfaceObj)
         pygame.display.update()
-        self.fpsClock.tick(self.fps)
+        self.fpsClock.tick(getFPS())
         
 
     def exit(self):
