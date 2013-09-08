@@ -5,4 +5,4 @@ def getHeight():
 def getFPS():
     return 60
 def fullscreen():
-    return True
+    return False
