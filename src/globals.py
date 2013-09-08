@@ -15,3 +15,6 @@ def setFPS(fps):
 def fullscreen():
     return __fullscreen
 
+def cursor():
+    return False
+

@@ -10,4 +10,6 @@ class Background(Entity):
         self.yPos = 0
         self.xPos = 0
     def event(self, event):
+        if self.xPos > getWidth():
+            self.xPos = 0
         super(Background, self).event(event)
