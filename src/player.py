@@ -59,6 +59,7 @@ class Player(Entity):
                 self.bulletList.pop(i)   
                 continue
             i+=1
+            
         while i < len(self.bulletList2):
             self.bulletList2[i].event(event)
             if self.bulletList2[i].outOfRange():
@@ -75,7 +76,7 @@ class Player(Entity):
                     self.k_down = True
                 if evt.key == K_a:
                     if self.counter == False:
-                        self.bulletList.append(Bullet(self.xPos + 117,self.yPos + 76))
+                        self.bulletList.append(Bullet(self.xPos + 117,self.yPos + 73))
                         self.counter = True
                 if evt.key == K_s:
                     self.k_s = True

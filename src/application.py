@@ -13,7 +13,9 @@ class Application:
         self.width = getWidth()
         self.height = getHeight()
         self.fps = getFPS()
-        self.bubbleCount = int(getWidth() / 40)
+        self.bubbleCount = int(getWidth() / 80)
+        self.drawBubbles = True
+        self.drawBG = True
         
         pygame.init()
         self.fpsClock = pygame.time.Clock()
@@ -86,15 +88,17 @@ class Application:
             
     def render(self):
         #Background
-        self.background.render(self.windowSurfaceObj)
+        if self.drawBG: self.background.render(self.windowSurfaceObj)
         #Boblene bak
-        for i in range(0, self.bubbleCount):
-            self.bubbleListBack[i].render(self.windowSurfaceObj, self.DrawPosVector)
+        if self.drawBubbles:
+            for i in range(0, self.bubbleCount):
+                self.bubbleListBack[i].render(self.windowSurfaceObj, self.DrawPosVector)
         #Spilleren
         self.player.render(self.windowSurfaceObj, self.DrawPosVector)
         #Boblene forran
-        for i in range(0, self.bubbleCount):
-            self.bubbleListFront[i].render(self.windowSurfaceObj, self.DrawPosVector)
+        if self.drawBubbles:
+            for i in range(0, self.bubbleCount):
+                self.bubbleListFront[i].render(self.windowSurfaceObj, self.DrawPosVector)
         
         #Konsollen
         self.console.render(self.windowSurfaceObj)
