@@ -1,3 +1,4 @@
+# coding: UTF-8
 import pygame
 from sys import exc_info
 
@@ -35,13 +36,21 @@ class Console:
         self.bsurface.fill((0,0,0))
 
     def execute(self):
-        line = "self.host." + (self.getCurrentLine())
+        line = self.getCurrentLine()
+        if line.strip() == "":
+            self.stageCurrentLine()
+            return
+        if not line[0] == "|":
+            line = "self.host." + line 
+        else:
+            line = line[1:] 
         try:
             exec(line) 
         except:
             pass
         error = str(exc_info()[0])
-        self.appendCurrentLine(self.errorsplit + error)
+        if error != "None":
+            self.appendCurrentLine(self.errorsplit + error)
         self.stageCurrentLine()
 
 

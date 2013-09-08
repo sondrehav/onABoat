@@ -1,6 +1,6 @@
 __width = 640
 __fps = 60
-__fullscreen = True
+__fullscreen = False
 def getWidth():
     return 640
 

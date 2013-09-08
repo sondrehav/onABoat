@@ -9,6 +9,8 @@ from background import *
 
 
 class Application:
+    entitylist = [[],[],[]] # 2D array - [0] er bak, [1] er player, [2] er forran
+
     def __init__(self):
         self.width = getWidth()
         self.height = getHeight()
@@ -29,15 +31,12 @@ class Application:
         
         pygame.mouse.set_visible(cursor())
         
-        self.entityList = []
-        self.bubbleListFront = []
-        self.bubbleListBack = []
-                
         for i in range(0, self.bubbleCount):
-            self.bubbleListFront.append(Bubble(True))
-            self.bubbleListBack.append(Bubble(False))
+            self.entitylist[2].append(Bubble(True))
+            self.entitylist[0].append(Bubble(False))
         
         self.player = Player()
+        self.entitylist[1].append(self.player)
         self.background = Background()
         
         print('Init...')
@@ -73,27 +72,16 @@ class Application:
         self.background.dirVector.setX(-(self.player.getXSpeed() / 8))
         self.background.event(self.events)
 
-        self.player.event(self.events)
-        for i in range(0, self.bubbleCount):
-            self.bubbleListFront[i].event(self.events)
-            self.bubbleListFront[i].setXSpeedFromPlayer(-self.player.getXSpeed())
-            self.bubbleListBack[i].event(self.events)
-            self.bubbleListBack[i].setXSpeedFromPlayer(-self.player.getXSpeed())
+        for lst in self.entitylist:
+            for e in lst:
+                e.event(self.events)
             
     def render(self):
         #Background
         if self.drawBG: self.background.render(self.windowSurfaceObj)
-        #Boblene bak
-        if self.drawBubbles:
-            for i in range(0, self.bubbleCount):
-                self.bubbleListBack[i].render(self.windowSurfaceObj, self.DrawPosVector)
-        #Spilleren
-        self.player.render(self.windowSurfaceObj, self.DrawPosVector)
-        #Boblene forran
-        if self.drawBubbles:
-            for i in range(0, self.bubbleCount):
-                self.bubbleListFront[i].render(self.windowSurfaceObj, self.DrawPosVector)
-        
+        for lst in self.entitylist:
+            for e in lst:
+                e.render(self.windowSurfaceObj, self.DrawPosVector)
         #Konsollen
         self.console.render(self.windowSurfaceObj)
         pygame.display.update()
