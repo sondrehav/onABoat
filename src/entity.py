@@ -18,6 +18,7 @@ class Entity(object):
         self.maxSpeed = 8
         self.renderCount = 0
         self.ticksBeforeAnimSwitch = 4
+        self.shouldAnimate = True
         
         self.surfaceObjects = []
         for image in self.imageNames:
@@ -33,7 +34,10 @@ class Entity(object):
         self.dirVector.yPos= self.yPos + self.height/2
 
     def render(self, surface, drawVector=False):
-        surface.blit(self.surfaceObjects[int((self.renderCount)/self.ticksBeforeAnimSwitch%len(self.imageNames))], (self.xPos,self.yPos))
-        self.renderCount += 1
+        nOfImages = len(self.surfaceObjects)
+        index = int((self.renderCount)/self.ticksBeforeAnimSwitch%nOfImages)
+        surface.blit(self.surfaceObjects[index], (self.xPos,self.yPos))
+        if self.shouldAnimate:
+            self.renderCount += 1
         if drawVector:
             self.dirVector.render(surface)

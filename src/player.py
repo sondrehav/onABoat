@@ -22,6 +22,7 @@ class Player(Entity):
         self.xfriction = 0.995
         self.maxSpeedX = 4
         self.yFrame = 20
+        self.disableInput = False
         self.timer = getFPS() * 5
         self.counter = False
         self.timer2 = getFPS() * 0.1
@@ -68,6 +69,8 @@ class Player(Entity):
             i+=1
             
     def key(self, event):
+        if self.disableInput is True: 
+            return
         for evt in event:
             if evt.type == KEYDOWN:
                 if evt.key == K_UP:
@@ -95,6 +98,10 @@ class Player(Entity):
                     self.k_r = False
                 if evt.key == K_LEFT:
                     self.k_l = False
+        if self.k_l or self.k_r:
+            self.shouldAnimate = True
+        else:
+            self.shouldAnimate = False
 
     def event(self, event):
         self.key(event)
@@ -113,7 +120,6 @@ class Player(Entity):
             
         self.movement(event)
         self.xMove()
-        self.ticksBeforeAnimSwitch = 36 - int(self.getXSpeed()) * 8
         super(Player, self).event(event)
         for i in range(0, len(self.bulletList)):
             self.bulletList[i].speed(self.xSpeed)
