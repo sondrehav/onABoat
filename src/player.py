@@ -19,6 +19,7 @@ class Player(Entity):
         self.xfriction = 0.995
         self.maxSpeedX = 4
         self.yFrame = 20
+        self.disableInput = False
 
     def xMove(self):
 
@@ -54,6 +55,8 @@ class Player(Entity):
             i+=1
     
     def key(self, event):
+        if self.disableInput is True: 
+            return
         for evt in event:
             if evt.type == KEYDOWN:
                 if evt.key == K_UP:

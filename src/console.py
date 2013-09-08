@@ -73,3 +73,4 @@ class Console:
     def stageCurrentLine(self):
         self.out("")
 
+
