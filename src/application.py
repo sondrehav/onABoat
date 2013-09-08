@@ -16,10 +16,9 @@ class Application:
         self.height = getHeight()
 
         self.fps = getFPS()
-        self.bubbleCount = int(getWidth() / 80)
+        self.bubbleCount = int(getWidth() / 160)
         self.drawBubbles = True
         self.drawBG = True
-
         
         pygame.init()
         self.fpsClock = pygame.time.Clock()
@@ -91,3 +90,8 @@ class Application:
     def exit(self):
         pygame.event.post(pygame.event.Event(QUIT))
 
+    def fullscreen(self, input):
+        if input:
+            self.windowSurfaceObj = pygame.display.set_mode((self.width, self.height), pygame.FULLSCREEN)
+        else:
+            self.windowSurfaceObj = pygame.display.set_mode((self.width, self.height))

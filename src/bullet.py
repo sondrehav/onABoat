@@ -8,8 +8,6 @@ class Bullet(Entity):
     def __init__(self, x, y):
         self.imageNames = ["res/ammo.png"]
         super(Bullet, self).__init__()
-        self.cropped = pygame.Surface((int(64),int(12)))
-        self.cropped.blit(self.surfaceObjects[0], (0, 0), (0, 0, 64, 12))
         self.xPos = x
         self.yPos = y
         
@@ -21,4 +19,5 @@ class Bullet(Entity):
         self.dirVector.setX(8 - input)
         
     def render(self, surface, drawVector = False):
-        surface.blit(self.cropped, (self.xPos, self.yPos))
+        surface.blit(self.surfaceObjects[0], (self.xPos, self.yPos))
+        super(Bullet, self).render(surface, drawVector)
