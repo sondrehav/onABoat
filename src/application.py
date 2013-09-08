@@ -3,6 +3,7 @@ from pygame.locals import *
 from entity import *
 from player import *
 from bubble import *
+from camera import Camera
 from console import Console
 from globals import *
 from background import *
@@ -38,6 +39,8 @@ class Application:
         self.entitylist[1].append(self.player)
         self.background = Background()
         
+        self.camera = Camera()
+        
         print('Init...')
         self.console = Console(getWidth(), getHeight())
         Console.host = self
@@ -68,21 +71,20 @@ class Application:
                     self.console.appendCurrentLine(event.unicode)
                     return
             
-        self.background.dirVector.setX(-(self.player.getXSpeed() / 8))
         self.background.event(self.events)
 
         for lst in self.entitylist:
             for e in lst:
-                if isinstance(e, Bubble):
-                    e.setXSpeedFromPlayer(-self.player.getXSpeed())
                 e.event(self.events)
             
     def render(self):
         #Background
-        if self.drawBG: self.background.render(self.windowSurfaceObj)
+        if self.drawBG: self.background.render(self.windowSurfaceObj, -self.camera.x, -self.camera.y)
         for lst in self.entitylist:
             for e in lst:
-                e.render(self.windowSurfaceObj, self.DrawPosVector)
+                x = e.pos.x - self.camera.x
+                y = e.pos.y - self.camera.y
+                e.render(self.windowSurfaceObj,x, y, self.DrawPosVector)
         #Konsollen
         self.console.render(self.windowSurfaceObj)
         pygame.display.update()
@@ -97,3 +99,4 @@ class Application:
             self.windowSurfaceObj = pygame.display.set_mode((self.width, self.height), pygame.FULLSCREEN)
         else:
             self.windowSurfaceObj = pygame.display.set_mode((self.width, self.height))
+

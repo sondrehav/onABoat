@@ -3,73 +3,25 @@ from pygame.locals import *
 from entity import Entity
 from bullet import Bullet
 from bullet2 import Bullet2
-from bubble import Bubble
 from globals import *
-from vector import *
 
 class Player(Entity):
     def __init__(self):
         self.imageNames =["res/submarine1.png","res/submarine2.png","res/submarine3.png","res/submarine2.png"]
         super(Player, self).__init__()
+        self.pos.x = 40
+
         self.k_up = False
         self.k_down = False
-        self.xPos = 40
-        self.bulletList = []
-        self.bulletList2 = []
-
-        self.k_r = False
-        self.k_l = False
+        self.k_right = False
+        self.k_left = False
         self.k_s = False
         self.k_a = False
 
-        self.xSpeed = 0
         self.xfriction = 0.995
-        self.maxSpeedX = 4
         self.yFrame = 20
         self.disableInput = False
-        self.timer = 0
-        self.counter = False
-        self.timer2 = 0
 
-    def xMove(self):
-
-        if self.k_r and (math.fabs(self.xSpeed) < self.maxSpeedX):
-            self.xSpeed += self.acceleration / 8
-            
-        if self.k_l and (self.xSpeed > 0):
-            self.xSpeed -= self.acceleration / 8
-            
-        if self.k_r == False and self.k_l == False and self.maxSpeedX != 0:
-            self.xSpeed *= self.xfriction
-            if math.fabs(self.xSpeed) == self.acceleration:
-                self.xSpeed = 0
-        
-    def movement(self, event):
-        if self.k_up and (math.fabs(self.dirVector.getY()) < self.maxSpeed or self.dirVector.getY() > 0):
-            self.dirVector.setY(self.dirVector.getY() - self.acceleration)
-
-        if self.k_down and (math.fabs(self.dirVector.getY()) < self.maxSpeed or self.dirVector.getY() < 0):
-            self.dirVector.setY(self.dirVector.getY() + self.acceleration)
-
-        if self.k_up == False and self.k_down == False and self.dirVector.getY() != 0:
-            self.dirVector.setY(self.dirVector.getY() * self.friction)
-            if math.fabs(self.dirVector.getY()) == math.fabs(self.acceleration):
-                self.dirVector.setLength(0) 
-
-        i = 0
-        while i < len(self.bulletList):
-            self.bulletList[i].event(event)
-            if self.bulletList[i].outOfRange():
-                self.bulletList.pop(i)   
-                continue
-            i+=1
-        i = 0
-        while i < len(self.bulletList2):
-            self.bulletList2[i].event(event)
-            if self.bulletList2[i].outOfRange():
-                self.bulletList2.pop(i)   
-                continue
-            i+=1
             
     def key(self, event):
         if self.disableInput is True: 
@@ -85,9 +37,9 @@ class Player(Entity):
                 if evt.key == K_s:
                     self.k_s = True
                 if evt.key == K_RIGHT:
-                    self.k_r = True
+                    self.k_right = True
                 if evt.key == K_LEFT:
-                    self.k_l = True
+                    self.k_left = True
             elif evt.type == KEYUP:
                 if evt.key == K_UP:
                     self.k_up = False
@@ -98,46 +50,38 @@ class Player(Entity):
                 if evt.key == K_a:
                     self.k_a = False
                 if evt.key == K_RIGHT:
-                    self.k_r = False
+                    self.k_right = False
                 if evt.key == K_LEFT:
-                    self.k_l = False
-        if self.k_l or self.k_r:
+                    self.k_left = False
+        if self.k_left or self.k_right:
             self.shouldAnimate = True
         else:
             self.shouldAnimate = False
 
     def event(self, event):
         self.key(event)
-        #Liten kule
-        if self.k_s == True:
-            if self.timer2 != 0:
-                self.timer2 -= 1
-            else:
-                self.bulletList2.append(Bullet2(self.xPos + 109,self.yPos + 93))
-                self.timer2 = getFPS() * 0.1
-        # Stor kule
-        if self.timer > 0:
-            self.timer -=1
-        elif self.k_a == True:
-            self.bulletList.append(Bullet(self.xPos + 117,self.yPos + 76))
-            self.timer = getFPS() * 5
-            
-        self.movement(event)
-        self.xMove()
+        if self.k_right:
+            self.acc.x = self.acceleration
+        else:
+            self.acc.x = -self.friction
+            if self.vel.x + self.acc.x < 0:
+                self.vel.x = 0
+                self.acc.x = 0 
         super(Player, self).event(event)
-        for i in range(0, len(self.bulletList)):
-            self.bulletList[i].speed(self.xSpeed)
-        for i in range(0, len(self.bulletList2)):
-            self.bulletList2[i].speed(self.xSpeed)
 
-    def render(self, surface, drawVector=False):
-        for i in range(0, len(self.bulletList)):
-            self.bulletList[i].render(surface, drawVector)
-        for i in range(0, len(self.bulletList2)):
-            self.bulletList2[i].render(surface, drawVector)
-        super(Player, self).render(surface, drawVector)
-        
-    def getXSpeed(self):
-        return self.xSpeed
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

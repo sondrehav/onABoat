@@ -18,6 +18,3 @@ class Bullet(Entity):
     def speed(self, input):
         self.dirVector.setX(8 - input)
         
-    def render(self, surface, drawVector = False):
-        surface.blit(self.surfaceObjects[0], (self.xPos, self.yPos))
-        super(Bullet, self).render(surface, drawVector)

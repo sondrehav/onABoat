@@ -2,42 +2,38 @@
 import pygame, sys, math
 from pygame.locals import *
 from application import *
-from vector import *
+from vector import Vector
 
 class Entity(object):
     def __init__(self):
-        self.xPos = 10
-        self.yPos = 50
-        if self.imageNames == None:
-            self.imageNames = ["res/defaultimage.png"]
-        self.dirVector = Vector(0,0)
-        self.velocity = 0
+        self.pos = Vector(0,0)
+        self.vel = Vector(0,0)
+        self.acc = Vector(0,0)
         self.direction = 0
-        self.acceleration = 0.25
-        self.friction = 0.9
+        self.acceleration = 0.1
+        self.friction = 0.9 * self.acceleration
         self.maxSpeed = 8
         self.renderCount = 0
         self.ticksBeforeAnimSwitch = 4
         self.shouldAnimate = True
         
+        if self.imageNames == None:
+            self.imageNames = ["res/defaultimage.png"]
+
         self.surfaceObjects = []
         for image in self.imageNames:
             self.surfaceObjects.append(pygame.image.load(image))
-        self.surfaceObject = self.surfaceObjects[0] #for å ikke ødelegge annen kode. 
-        self.width = self.surfaceObject.get_width()
-        self.height = self.surfaceObject.get_height() 
+        self.width = self.surfaceObjects[0].get_width()
+        self.height = self.surfaceObjects[0].get_height() 
 
     def event(self, event):
-        self.xPos += self.dirVector.getX()
-        self.yPos += self.dirVector.getY()
-        self.dirVector.xPos = self.xPos + self.width/2
-        self.dirVector.yPos= self.yPos + self.height/2
+        self.pos = self.pos + self.vel
+        self.vel += self.acc
 
-    def render(self, surface, drawVector=False):
+    def render(self, surface, xpos, ypos, drawVector=False):
         nOfImages = len(self.surfaceObjects)
         index = int((self.renderCount)/self.ticksBeforeAnimSwitch%nOfImages)
-        surface.blit(self.surfaceObjects[index], (self.xPos,self.yPos))
+        surface.blit(self.surfaceObjects[index], (xpos, ypos))
         if self.shouldAnimate:
             self.renderCount += 1
-        if drawVector:
-            self.dirVector.render(surface)
+
