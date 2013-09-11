@@ -1,0 +1,11 @@
+#basic
+imageName = 'res/test.png'
+Count = 50
+SpeedFrom = 2
+SpeedTo = 4
+LifeFrom = 4
+LifeTo = 8
+Direction = 180
+Spread = 30
+XSpread = 0
+YSpread = 480

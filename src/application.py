@@ -7,10 +7,10 @@ from camera import Camera
 from console import Console
 from globals import *
 from background import *
-
+from particleFX import ParticleFX
 
 class Application:
-    entitylist = [[],[],[]] # 2D array - [0] er bak, [1] er player, [2] er forran
+    entitylist = [[],[],[]] # 3D array - [0] er bak, [1] er player, [2] er forran
 
     def __init__(self):
         self.width = getWidth()
@@ -40,6 +40,7 @@ class Application:
         self.background = Background()
         
         self.camera = Camera()
+        self.particle01 = ParticleFX('particleFXtest01.txt',getWidth(),0)
         
         print('Init...')
         self.console = Console(getWidth(), getHeight())
@@ -72,6 +73,7 @@ class Application:
                     return
             
         self.background.event(self.events)
+        self.particle01.event()
 
         for lst in self.entitylist:
             for e in lst:
@@ -85,10 +87,14 @@ class Application:
                 x = e.pos.x - self.camera.x
                 y = e.pos.y - self.camera.y
                 e.render(self.windowSurfaceObj,x, y, self.DrawPosVector)
+                
+        self.particle01.render(self.windowSurfaceObj)        
+        
         #Konsollen
         self.console.render(self.windowSurfaceObj)
         pygame.display.update()
         self.fpsClock.tick(getFPS())
+        
         
 
     def exit(self):

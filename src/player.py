@@ -68,20 +68,3 @@ class Player(Entity):
                 self.vel.x = 0
                 self.acc.x = 0 
         super(Player, self).event(event)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
