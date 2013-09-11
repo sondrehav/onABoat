@@ -28,7 +28,11 @@ class Entity(object):
 
     def event(self, event):
         self.pos = self.pos + self.vel
-        self.vel += self.acc
+        if (self.vel+self.acc).getLengthSqrd() <= self.maxSpeed**2:
+            self.vel += self.acc
+        else:
+            self.vel.setLength(self.maxSpeed)
+
 
     def render(self, surface, xpos, ypos, drawVector=False):
         nOfImages = len(self.surfaceObjects)
