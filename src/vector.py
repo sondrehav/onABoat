@@ -8,9 +8,13 @@ class Vector:
         
     def getLength(self):
         return math.sqrt(self.x**2 + self.y**2)
+    def getLengthSqrd(self):
+        return self.x**2 + self.y**2
 
     def setLength(self, val):
-        l = getLength()
+        l = self.getLength()
+        if l == 0:
+            return
         self.x *= val/l
         self.y *= val/l
 

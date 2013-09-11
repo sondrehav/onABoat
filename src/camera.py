@@ -1,8 +1,18 @@
 class Camera:
-    
-    def __init__(self):
-        self.x = 0
-        self.y = 0
-        self.height = 0
-        self.width = 0
+    x = 0
+    y = 0
+    height = 0
+    width = 0
+    entitylock = None
+    stickX = True
+    stickY = False
+
+    @staticmethod
+    def update():
+        if not Camera.entitylock:
+            return
+        if Camera.stickX: 
+            Camera.x += Camera.entitylock.vel.x
+        if Camera.stickY:
+            Camera.y += Camera.entitylock.vel.y
 

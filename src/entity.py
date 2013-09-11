@@ -16,6 +16,7 @@ class Entity(object):
         self.renderCount = 0
         self.ticksBeforeAnimSwitch = 4
         self.shouldAnimate = True
+        self.safeToDelete = False
         
         if self.imageNames == None:
             self.imageNames = ["res/defaultimage.png"]
@@ -28,7 +29,11 @@ class Entity(object):
 
     def event(self, event):
         self.pos = self.pos + self.vel
-        self.vel += self.acc
+        if (self.vel+self.acc).getLengthSqrd() <= self.maxSpeed**2:
+            self.vel += self.acc
+        else:
+            self.vel.setLength(self.maxSpeed)
+
 
     def render(self, surface, xpos, ypos, drawVector=False):
         nOfImages = len(self.surfaceObjects)

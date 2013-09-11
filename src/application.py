@@ -39,7 +39,7 @@ class Application:
         self.entitylist[1].append(self.player)
         self.background = Background()
         
-        self.camera = Camera()
+        Camera.entitylock = self.player
         
         print('Init...')
         self.console = Console(getWidth(), getHeight())
@@ -76,19 +76,24 @@ class Application:
         for lst in self.entitylist:
             for e in lst:
                 e.event(self.events)
+                if e.safeToDelete:
+                    if e.pos.x < Camera.x-Camera.width:
+                        lst.remove(e)
+        Camera.update()
+        
             
     def render(self):
         #Background
-        if self.drawBG: self.background.render(self.windowSurfaceObj, -self.camera.x, -self.camera.y)
+        if self.drawBG: self.background.render(self.windowSurfaceObj, -Camera.x, -Camera.y)
         for lst in self.entitylist:
             for e in lst:
-                x = e.pos.x - self.camera.x
-                y = e.pos.y - self.camera.y
+                x = e.pos.x - Camera.x
+                y = e.pos.y - Camera.y
                 e.render(self.windowSurfaceObj,x, y, self.DrawPosVector)
         #Konsollen
         self.console.render(self.windowSurfaceObj)
         pygame.display.update()
-        self.fpsClock.tick(getFPS())
+        #self.fpsClock.tick(getFPS())
         
 
     def exit(self):
