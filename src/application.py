@@ -40,7 +40,10 @@ class Application:
         self.background = Background()
         
         self.camera = Camera()
+
         self.particle01 = ParticleFX('particleFXtest01.txt',getWidth(),0)
+
+        self.camera.entitylock = self.player
         
         print('Init...')
         self.console = Console(getWidth(), getHeight())
@@ -78,6 +81,11 @@ class Application:
         for lst in self.entitylist:
             for e in lst:
                 e.event(self.events)
+                if e.safeToDelete:
+                    if e.pos.x < self.camera.x-self.camera.width:
+                        lst.remove(e)
+        self.camera.update()
+        
             
     def render(self):
         #Background
@@ -93,7 +101,7 @@ class Application:
         #Konsollen
         self.console.render(self.windowSurfaceObj)
         pygame.display.update()
-        self.fpsClock.tick(getFPS())
+        #self.fpsClock.tick(getFPS())
         
         
 

@@ -15,6 +15,7 @@ class Bubble(Entity):
 
         self.pos = Vector(randint(0,getWidth()), randint(0, getHeight()))
         self.front = front
+        self.safeToDelete = True
 
     def event(self, event):
         super(Bubble, self).event(event)

@@ -1,6 +1,7 @@
 # coding: UTF-8
 import pygame
 from sys import exc_info
+import camera
 
 class SingleLine:
     textcolor = pygame.Color(220,220,220)
