@@ -101,7 +101,7 @@ class Application:
         #Konsollen
         self.console.render(self.windowSurfaceObj)
         pygame.display.update()
-        #self.fpsClock.tick(getFPS())
+        self.fpsClock.tick(getFPS())
         
         
 

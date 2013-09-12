@@ -11,8 +11,8 @@ class Entity(object):
         self.acc = Vector(0,0)
         self.direction = 0
         self.acceleration = 0.1
-        self.friction = 0.9 * self.acceleration
-        self.maxSpeed = 8
+        self.friction = 0.2 * self.acceleration
+        self.maxSpeed = 3
         self.renderCount = 0
         self.ticksBeforeAnimSwitch = 4
         self.shouldAnimate = True

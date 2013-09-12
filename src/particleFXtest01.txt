@@ -1,5 +1,5 @@
 #basic
-imageName = 'res/test.png'
+imageName = 'res/bubble.png'
 Count = 50
 SpeedFrom = 2
 SpeedTo = 4

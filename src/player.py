@@ -21,8 +21,8 @@ class Player(Entity):
         self.xacceleration = self.acceleration
         self.yacceleration = self.acceleration * 3.0
         self.xmaxSpeed = self.maxSpeed
-        self.ymaxSpeed = self.maxSpeed / 1.5
-        self.yFrame = 20
+        self.ymaxSpeed = self.maxSpeed * 1.5
+        self.yfriction = self.friction * 5
         self.disableInput = False
 
             
@@ -68,8 +68,8 @@ class Player(Entity):
         elif self.k_down:
             self.acc.y = self.yacceleration
         else:
-            self.acc.y = (self.friction if self.vel.y<0 else -self.friction)
-        if abs(self.vel.y) <= self.friction:
+            self.acc.y = (self.yfriction if self.vel.y<0 else -self.yfriction)
+        if abs(self.vel.y) <= self.yfriction:
             self.vel.y = 0
         if self.k_right:
             self.acc.x = self.xacceleration
